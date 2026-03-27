@@ -3,15 +3,16 @@ CREATE FUNCTION get_users_items_out(
     start_date date DEFAULT '2000-01-01',
     end_date date DEFAULT '2050-01-01'
 )
-RETURNS TABLE(
+RETURNS TABLE 
+(
   loan_status text,
   patron_group text,
   patron_barcode text,
   last_name text,
   first_name text
-  )
-  AS $$
-  WITH days AS (
+)
+AS $$
+WITH days AS (
     SELECT 
         id,
         DATE_PART('day', NOW() - due_date) AS days_overdue
@@ -58,9 +59,8 @@ FROM
 	LEFT JOIN folio_inventory.location__t AS inv_loc ON inv_loc.id = circ_loan.item_effective_location_id_at_check_out
     LEFT JOIN days ON days.id = circ_loan.id
 WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open'
+ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC
   $$
   LANGUAGE SQL
   STABLE
   PARALLEL SAFE;
-  
-ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC;
