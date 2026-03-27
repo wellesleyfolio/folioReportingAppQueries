@@ -1,8 +1,6 @@
 /* Open loans checked out to patrons with number of days overdue included*/
-CREATE FUNCTION get_users_items_out(
-    start_date date DEFAULT '2000-01-01',
-    end_date date DEFAULT '2050-01-01'
-)
+CREATE FUNCTION get_users_items_out()
+	
 RETURNS TABLE 
 (
   loan_status text,
@@ -12,13 +10,13 @@ RETURNS TABLE
   first_name text
 )
 AS $$
-WITH days AS (
+/*WITH days AS (
     SELECT 
         id,
         DATE_PART('day', NOW() - due_date) AS days_overdue
     FROM folio_circulation.loan__t 
-)
-SELECT 	CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uuid) AS "Link to Patron Record",
+)*/
+SELECT 	--CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uuid) AS "Link to Patron Record",
 	circ_loan_og.jsonb#>>'{status,name}' as loan_status,
     users_groups.group AS patron_group,
     users_u.barcode AS patron_barcode,
@@ -26,7 +24,7 @@ SELECT 	CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uu
     CASE --GETS preferred firstname OTHERWISE GETS first_name
 	   WHEN users_u_og.jsonb#>>'{personal,preferredFirstName}' <> '' THEN users_u_og.jsonb#>>'{personal,preferredFirstName}'
        ELSE users_u_og.jsonb#>>'{personal,firstName}'
-       END AS first_name_pref/*,
+       END AS first_name_pref /*,
     users_u_og.jsonb#>>'{personal,middleName}' AS middle_name,
 	users_u_og.jsonb#>>'{personal,email}' AS email,
 	users_u_og.jsonb#>>'{customFields,affiliationNote}' AS affiliation_note,
@@ -57,7 +55,7 @@ FROM
     LEFT JOIN folio_inventory.holdings_record__t AS inv_hr ON inv_hr.id = inv_item.holdings_record_id
     LEFT JOIN folio_inventory.instance__t AS inv_inst ON inv_inst.id = inv_hr.instance_id
 	LEFT JOIN folio_inventory.location__t AS inv_loc ON inv_loc.id = circ_loan.item_effective_location_id_at_check_out
-    LEFT JOIN days ON days.id = circ_loan.id
+    --LEFT JOIN days ON days.id = circ_loan.id
 WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open'
 ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC
   $$
