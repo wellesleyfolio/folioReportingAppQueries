@@ -25,7 +25,7 @@ SELECT 	CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uu
     CASE --GETS preferred firstname OTHERWISE GETS first_name
 	   WHEN users_u_og.jsonb#>>'{personal,preferredFirstName}' <> '' THEN users_u_og.jsonb#>>'{personal,preferredFirstName}'
        ELSE users_u_og.jsonb#>>'{personal,firstName}'
-       END AS "first name (pref)",
+       END AS first_name_pref/*,
     users_u_og.jsonb#>>'{personal,middleName}' AS middle_name,
 	users_u_og.jsonb#>>'{personal,email}' AS email,
 	users_u_og.jsonb#>>'{customFields,affiliationNote}' AS affiliation_note,
@@ -45,7 +45,7 @@ SELECT 	CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uu
     circ_loan.item_status AS item_status,
     to_char(circ_loan.loan_date,'MM-DD-YYYY HH24:MM AM') AS checked_out_date,
     DATE_PART('day', NOW() - circ_loan.due_date) AS days_overdue,
-    users_u.id AS patron_uuid
+    users_u.id AS patron_uuid*/
 FROM
     folio_circulation.loan__t AS circ_loan --folio_reporting.loans_items AS li
     LEFT JOIN folio_circulation.loan__ AS circ_loan_og ON circ_loan_og.id = circ_loan.id AND circ_loan_og.__current = TRUE
