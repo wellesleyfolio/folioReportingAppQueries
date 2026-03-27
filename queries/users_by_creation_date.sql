@@ -1,4 +1,4 @@
---ldp:function get_users
+--metadb:function get_users
 
 DROP FUNCTION IF EXISTS get_users;
 
@@ -13,7 +13,7 @@ AS $$
 SELECT id,
        barcode,
        created_date
-    FROM user_users
+    FROM folio_users.users__t__
     WHERE start_date <= created_date AND created_date < end_date
 $$
 LANGUAGE SQL
