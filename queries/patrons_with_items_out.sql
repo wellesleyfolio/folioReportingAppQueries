@@ -1,8 +1,8 @@
 /* Open loans checked out to patrons with number of days overdue included*/
+DROP FUNCTION IF EXISTS get_users_items_out;
+
 CREATE FUNCTION get_users_items_out()
-	
-RETURNS TABLE 
-(
+RETURNS TABLE(
   loan_status text,
   patron_group text,
   patron_barcode text,
