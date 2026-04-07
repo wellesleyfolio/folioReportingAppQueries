@@ -1,6 +1,5 @@
 --metadb:fucntion patrons_with_items_out
 DROP FUNCTION IF EXISTS patrons;
-
 CREATE FUNCTION patrons()
 RETURNS TABLE
 	(renewal_count text,
