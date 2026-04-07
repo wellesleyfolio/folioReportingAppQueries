@@ -6,10 +6,10 @@ RETURNS TABLE
     item_status text
 	)
 AS $$
-SELECT 	
+select 	
     circ_loan.renewal_count AS renewal_count,
     circ_loan.item_status AS item_status
-FROM
+from
     folio_circulation.loan__t circ_loan
 $$
 LANGUAGE SQL
