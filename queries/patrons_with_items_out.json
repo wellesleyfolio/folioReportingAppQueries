@@ -1,11 +1,33 @@
 {
     "displayName": "List items checked out to users",
-    "description": "Created by Kara1 to exercise metadb's reporting facility",
-    "instructions": "Choose a start and end date for the user-creation period.",
+    "description": "Created by Kara    Patron Groups:
+				Wellesley student or cross registered
+				Wellesley faculty or staff
+				MIT or Olin or Babson student
+				MIT or Olin or Babson faculty or staff
+				Wellesley affiliates
+				Faculty emeriti or Trustees or Pres Club
+				Wellesley alumnae
+				Boston Library Consortium card holders
+				Internal accounts ILL
+				Wellesley auditors",
+    "instructions": "Input 1 to 3 user group names",
     "parameters": [
         {
-            "name": "userGroup",
-            "displayName": "User Group name (s) divided by , no spaces",
+            "name": "userGroup1",
+            "displayName": "User Group name 1",
+            "type": "text",
+            "required": false
+        }
+        {
+            "name": "userGroup2",
+            "displayName": "User Group name 2",
+            "type": "text",
+            "required": false
+        }
+        {
+            "name": "userGroup3",
+            "displayName": "User Group name 3",
             "type": "text",
             "required": false
         }]
