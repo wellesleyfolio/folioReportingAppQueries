@@ -37,17 +37,17 @@ SELECT
 	CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uuid) AS "Link to Patron Record",
 	jsonb_extract_path_text(circ_loan.jsonb, 'itemId') :: uuid as item_id, 
 	u.jsonb->'personal'->>'firstName' as firstName,
-	circ_loan_og.jsonb#>>'{status,name}' as loan_status,
+--	circ_loan_og.jsonb#>>'{status,name}' as loan_status,
 	users_groups.group AS patron_group,
 	users_u.barcode AS patron_barcode,
-	users_u_og.jsonb#>>'{personal,firstName}' as first_name,
-	users_u_og.jsonb#>>'{personal,preferredFirstName}' as preferred_first_name,
-	users_u_og.jsonb#>>'{personal,middleName}' AS middle_name,
-	users_u_og.jsonb#>>'{personal,lastName}' as last_name,
-	users_u_og.jsonb#>>'{personal,email}' AS email,
-	users_u_og.jsonb#>>'{customFields,affiliationNote}' AS affiliation_note,
-	users_u_og.jsonb#>>'{customFields,departmentOrMajor}' AS department_or_major,
-	users_u_og.jsonb#>>'{customFields,userNote}' AS user_note,
+--	users_u_og.jsonb#>>'{personal,firstName}' as first_name,
+--	users_u_og.jsonb#>>'{personal,preferredFirstName}' as preferred_first_name,
+--	users_u_og.jsonb#>>'{personal,middleName}' AS middle_name,
+--	users_u_og.jsonb#>>'{personal,lastName}' as last_name,
+--	users_u_og.jsonb#>>'{personal,email}' AS email,
+--	users_u_og.jsonb#>>'{customFields,affiliationNote}' AS affiliation_note,
+--	users_u_og.jsonb#>>'{customFields,departmentOrMajor}' AS department_or_major,
+--	users_u_og.jsonb#>>'{customFields,userNote}' AS user_note,
 	to_char(users_u.expiration_date,'MM-DD-YYYY') AS patron_expiration_date,
 	inv_loc.name AS item_location_at_checkout,
 	inv_inst.index_title AS title,
@@ -74,8 +74,8 @@ FROM
 	LEFT JOIN folio_inventory.instance__t AS inv_inst ON inv_inst.id = inv_hr.instance_id
 	LEFT JOIN folio_inventory.location__t AS inv_loc ON inv_loc.id = circ_loan.item_effective_location_id_at_check_out
 	LEFT JOIN days ON days.id = circ_loan.id
-WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open'
-ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC
+--WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open'
+--ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC
 $$
 LANGUAGE SQL
 STABLE
