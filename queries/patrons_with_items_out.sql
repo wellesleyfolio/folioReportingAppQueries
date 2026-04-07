@@ -2,8 +2,8 @@
 DROP FUNCTION IF EXISTS get_users_items_out;
 
 CREATE FUNCTION get_users_items_out()
-RETURNS TABLE
---	(link_to_patron text,
+RETURNS TABLE(
+--	link_to_patron text,
 --	loan_status text,
 	patron_group text,
 	patron_barcode text,
@@ -57,15 +57,15 @@ SELECT
     users_u.id AS patron_uuid
 FROM
     folio_circulation.loan__t AS circ_loan --folio_reporting.loans_items AS li
-    LEFT JOIN folio_circulation.loan__ AS circ_loan_og ON circ_loan_og.id = circ_loan.id AND circ_loan_og.__current = TRUE
+--    LEFT JOIN folio_circulation.loan__ AS circ_loan_og ON circ_loan_og.id = circ_loan.id AND circ_loan_og.__current = TRUE
     LEFT JOIN folio_users.users__t AS users_u ON users_u.id::uuid = circ_loan.user_id::uuid
     LEFT JOIN folio_users.groups__t AS users_groups ON users_groups.id = users_u.patron_group
-    LEFT JOIN folio_users.users AS users_u_og ON users_u.id::uuid = users_u_og.id
+--    LEFT JOIN folio_users.users AS users_u_og ON users_u.id::uuid = users_u_og.id
     LEFT JOIN folio_inventory.item__t AS inv_item ON inv_item.id = circ_loan.item_id
     LEFT JOIN folio_inventory.holdings_record__t AS inv_hr ON inv_hr.id = inv_item.holdings_record_id
     LEFT JOIN folio_inventory.instance__t AS inv_inst ON inv_inst.id = inv_hr.instance_id
 	LEFT JOIN folio_inventory.location__t AS inv_loc ON inv_loc.id = circ_loan.item_effective_location_id_at_check_out
-    LEFT JOIN days ON days.id = circ_loan.id
+--    LEFT JOIN days ON days.id = circ_loan.id
 --WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open'
 --ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC
   $$
