@@ -31,7 +31,7 @@ WITH days AS (
   SELECT 
     id,
     DATE_PART('day', NOW() - due_date) AS days_overdue
-    FROM folio_circulation.loan__t 
+  FROM folio_circulation.loan__t 
 )
 SELECT 	
 	CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uuid) AS "Link to Patron Record",
