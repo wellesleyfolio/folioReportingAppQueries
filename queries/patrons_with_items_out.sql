@@ -20,16 +20,14 @@ SELECT 	--CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::
 	circ_loan_og.jsonb#>>'{status,name}' as loan_status,
     users_groups.group AS patron_group,
     users_u.barcode AS patron_barcode,
-    users_u_og.jsonb#>>'{personal,lastName}' as last_name,
-    CASE --GETS preferred firstname OTHERWISE GETS first_name
-	   WHEN users_u_og.jsonb#>>'{personal,preferredFirstName}' <> '' THEN users_u_og.jsonb#>>'{personal,preferredFirstName}'
-       ELSE users_u_og.jsonb#>>'{personal,firstName}'
-       END AS first_name_pref /*,
+    users_u_og.jsonb#>>'{personal,firstName}' as first_name,
+	users_u_og.jsonb#>>'{personal,preferredFirstName}' as preferred_first_name,
     users_u_og.jsonb#>>'{personal,middleName}' AS middle_name,
+	users_u_og.jsonb#>>'{personal,lastName}' as last_name,
 	users_u_og.jsonb#>>'{personal,email}' AS email,
 	users_u_og.jsonb#>>'{customFields,affiliationNote}' AS affiliation_note,
     users_u_og.jsonb#>>'{customFields,departmentOrMajor}' AS department_or_major,
-    users_u_og.jsonb#>>'{customFields,userNote}' AS user_note,
+    users_u_og.jsonb#>>'{customFields,userNote}' AS user_note/*,
     to_char(users_u.expiration_date,'MM-DD-YYYY') AS patron_expiration_date,
     inv_loc.name AS item_location_at_checkout,
     inv_inst.index_title AS title,
