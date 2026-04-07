@@ -4,8 +4,8 @@ CREATE FUNCTION get_users_items_out(
 	userGroup1 varchar DEFAULT '',
 	userGroup2 varchar DEFAULT '',
 	userGroup3 varchar DEFAULT '',
-	expirationDateStart date DEFAULT '2050-01-01',
-	expirationDateEnd date DEFAULT '2000-01-01')
+	expirationDateStart date DEFAULT '2000-01-01',
+	expirationDateEnd date DEFAULT '2050-01-01')
 RETURNS TABLE(
 	Link_to_patron text,
 	loan_status text,
