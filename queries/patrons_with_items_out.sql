@@ -19,7 +19,7 @@ RETURNS TABLE
     item_location_at_checkout text,
     title text, 
 --    call_number text,
-    vol_chron_enum text,
+--    vol_chron_enum text,
     item_barcode text,
     renewal_count integer,
 --    due_date timestamptz,
@@ -48,7 +48,7 @@ SELECT
 --	    WHEN CONCAT(inv_item.item_level_call_number_prefix,inv_item.item_level_call_number) > '' THEN CONCAT(inv_item.item_level_call_number_prefix,inv_item.item_level_call_number)
 --        ELSE CONCAT(inv_hr.call_number_prefix,inv_hr.call_number) 
 --        END AS call_number,
-    CONCAT(inv_item.volume,inv_item.chronology,inv_item.enumeration) AS vol_chron_enum,
+--    CONCAT(inv_item.volume,inv_item.chronology,inv_item.enumeration) AS vol_chron_enum,
     inv_item.barcode AS item_barcode,
     circ_loan.renewal_count AS renewal_count,
  --   to_char(circ_loan.due_date,'MM-DD-YYYY HH24:MM AM') AS due_date,
