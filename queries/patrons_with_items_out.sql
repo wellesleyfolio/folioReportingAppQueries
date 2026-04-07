@@ -58,7 +58,7 @@ SELECT
 FROM
     folio_circulation.loan__t AS circ_loan
 --    LEFT JOIN folio_circulation.loan__ AS circ_loan_og ON (circ_loan_og.id = circ_loan.id AND circ_loan_og.__current = TRUE)
-    LEFT JOIN folio_users.users__t AS users_u ON (users_u.id::uuid = circ_loan.user_id::uuid)
+    LEFT JOIN folio_users.users__t AS users_u ON (users_u.id = circ_loan.user_id)
     LEFT JOIN folio_users.groups__t AS users_groups ON (users_groups.id = users_u.patron_group)
 --    LEFT JOIN folio_users.users AS users_u_og ON (users_u.id::uuid = users_u_og.id)
     LEFT JOIN folio_inventory.item__t AS inv_item ON (inv_item.id = circ_loan.item_id)
