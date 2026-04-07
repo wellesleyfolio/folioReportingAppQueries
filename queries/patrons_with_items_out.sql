@@ -24,7 +24,6 @@ RETURNS TABLE(
 	due_date timestamptz,
 	item_status text,
 	checked_out_date timestamptz,
-    days_overdue integer,
 	patron_uuid uuid)
 AS $$
 SELECT 	
