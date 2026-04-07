@@ -66,8 +66,8 @@ FROM
     LEFT JOIN folio_inventory.instance__t AS inv_inst ON inv_inst.id = inv_hr.instance_id
 	LEFT JOIN folio_inventory.location__t AS inv_loc ON inv_loc.id = circ_loan.item_effective_location_id_at_check_out
     LEFT JOIN days ON days.id = circ_loan.id
-WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open'
-ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC
+--WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open'
+--ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC
   $$
   LANGUAGE SQL
   STABLE
