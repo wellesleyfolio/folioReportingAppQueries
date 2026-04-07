@@ -22,7 +22,7 @@ AS $$
 select
     ii.instance_id as instance_id,
     ii.title as title,
-    ih.holdings_id as holdings_id,
+    ih.id as holdings_id,
     ih.call_number as call_number,
     ii2.item_id as item_id,
     ii2.barcode as item_barcode,
@@ -38,7 +38,7 @@ from
 inner join folio_derived.holdings_ext ih on
     ii.instance_id = ih.instance_id
 inner join folio_derived.item_ext ii2 on
-    ih.holdings_id = ii2.holdings_record_id
+    ih.id = ii2.holdings_record_id
 inner join folio_derived.loans_items cl on
     cl.item_id = ii2.item_id
 inner join folio_derived.users_groups ug on
