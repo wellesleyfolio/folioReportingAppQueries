@@ -3,7 +3,7 @@ DROP FUNCTION IF EXISTS get_users_items_out;
 
 CREATE FUNCTION get_users_items_out()
 RETURNS TABLE
-	(link_to_patron text,
+--	(link_to_patron text,
 --	loan_status text,
 	patron_group text,
 	patron_barcode text,
@@ -18,7 +18,7 @@ RETURNS TABLE
 --    patron_expiration_date timestamptz,
     item_location_at_checkout text,
     title text, 
-    call_number text,
+--    call_number text,
     vol_chron_enum text,
     item_barcode text,
     renewal_count integer,
@@ -29,7 +29,7 @@ RETURNS TABLE
 )
 AS $$
 SELECT 	
-	CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uuid) AS "Link to Patron Record",
+--	CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uuid) AS "Link to Patron Record",
 --	circ_loan_og.jsonb#>>'{status,name}' as loan_status,
     users_groups.group AS patron_group,
     users_u.barcode AS patron_barcode,
@@ -44,10 +44,10 @@ SELECT
 --    to_char(users_u.expiration_date,'MM-DD-YYYY') AS patron_expiration_date,
     inv_loc.name AS item_location_at_checkout,
     inv_inst.index_title AS title,
-    CASE --GETS concat prefix and call number from item record OTHERWISE GETS holdings prefix and callnumber 
-	    WHEN CONCAT(inv_item.item_level_call_number_prefix,inv_item.item_level_call_number) > '' THEN CONCAT(inv_item.item_level_call_number_prefix,inv_item.item_level_call_number)
-        ELSE CONCAT(inv_hr.call_number_prefix,inv_hr.call_number) 
-        END AS call_number,
+--    CASE --GETS concat prefix and call number from item record OTHERWISE GETS holdings prefix and callnumber 
+--	    WHEN CONCAT(inv_item.item_level_call_number_prefix,inv_item.item_level_call_number) > '' THEN CONCAT(inv_item.item_level_call_number_prefix,inv_item.item_level_call_number)
+--        ELSE CONCAT(inv_hr.call_number_prefix,inv_hr.call_number) 
+--        END AS call_number,
     CONCAT(inv_item.volume,inv_item.chronology,inv_item.enumeration) AS vol_chron_enum,
     inv_item.barcode AS item_barcode,
     circ_loan.renewal_count AS renewal_count,
