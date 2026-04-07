@@ -8,13 +8,13 @@
             "displayName": "User Group name 1",
             "type": "text",
             "required": false
-        }
+        },
         {
             "name": "userGroup2",
             "displayName": "User Group name 2",
             "type": "text",
             "required": false
-        }
+        },
         {
             "name": "userGroup3",
             "displayName": "User Group name 3",
