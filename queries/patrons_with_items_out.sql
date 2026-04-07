@@ -4,7 +4,7 @@ DROP FUNCTION IF EXISTS get_users_items_out;
 CREATE FUNCTION get_users_items_out()
 RETURNS TABLE
 	(link_to_patron text,
-	loan_status text,
+--	loan_status text,
 	patron_group text,
 	patron_barcode text,
 	first_name text,
@@ -25,7 +25,6 @@ RETURNS TABLE
     due_date timestamptz,
     item_status text,
     checked_out_date timestamptz,
-    integer,
     patron_uuid uuid
 )
 AS $$
