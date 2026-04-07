@@ -1,4 +1,4 @@
-/* Open loans checked out to patrons with number of days overdue included*/
+--/* Open loans checked out to patrons with number of days overdue included*/
 DROP FUNCTION IF EXISTS get_users_items_out;
 
 CREATE FUNCTION get_users_items_out()
