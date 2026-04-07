@@ -3,7 +3,7 @@ DROP FUNCTION IF EXISTS patrons_with_items_out;
 
 CREATE FUNCTION patrons_with_items_out()
 RETURNS TABLE
-	(renewal_count integer,
+	(renewal_count text,
     item_status text
 	)
 AS $$
