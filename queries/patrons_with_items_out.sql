@@ -1,4 +1,4 @@
--- metadb:function get_users_items_out
+--metadb:function get users_items_out
 DROP FUNCTION IF EXISTS get_users_items_out;
 CREATE FUNCTION get_users_items_out()
 RETURNS TABLE(
@@ -24,11 +24,18 @@ RETURNS TABLE(
 	due_date timestamptz,
 	item_status text,
 	checked_out_date timestamptz,
+    days_overdue integer,
 	patron_uuid uuid)
 AS $$
+WITH days AS (
+  SELECT 
+    id,
+    DATE_PART('day', NOW() - due_date) AS days_overdue
+    FROM folio_circulation.loan__t 
+)
 SELECT 	
 	CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uuid) AS "Link to Patron Record",
-	jsonb_extract_path_text(loan.jsonb, 'itemId') :: uuid as item_id, 
+	jsonb_extract_path_text(circ_loan.jsonb, 'itemId') :: uuid as item_id, 
 	u.jsonb->'personal'->>'firstName' as firstName,
 	circ_loan_og.jsonb#>>'{status,name}' as loan_status,
 	users_groups.group AS patron_group,
@@ -54,6 +61,7 @@ SELECT
 	to_char(circ_loan.due_date,'MM-DD-YYYY HH24:MM AM') AS due_date,
 	circ_loan.item_status AS item_status,
 	to_char(circ_loan.loan_date,'MM-DD-YYYY HH24:MM AM') AS checked_out_date,
+	DATE_PART('day', NOW() - circ_loan.due_date) AS days_overdue,
 	users_u.id AS patron_uuid
 FROM
 	folio_circulation.loan__t AS circ_loan --folio_reporting.loans_items AS li
@@ -65,6 +73,7 @@ FROM
 	LEFT JOIN folio_inventory.holdings_record__t AS inv_hr ON inv_hr.id = inv_item.holdings_record_id
 	LEFT JOIN folio_inventory.instance__t AS inv_inst ON inv_inst.id = inv_hr.instance_id
 	LEFT JOIN folio_inventory.location__t AS inv_loc ON inv_loc.id = circ_loan.item_effective_location_id_at_check_out
+	LEFT JOIN days ON days.id = circ_loan.id
 WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open'
 ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC
 $$
