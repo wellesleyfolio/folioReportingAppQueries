@@ -2,10 +2,10 @@
 DROP FUNCTION IF EXISTS get_users_items_outT;
 
 CREATE FUNCTION get_users_items_outT()
-RETURNS TABLE(
+RETURNS TABLE
 --	link_to_patron text,
 --	loan_status text,
-	patron_group text,
+	(patron_group text,
 	patron_barcode text,
 --	first_name text,
 --	preferred_first_name text,
