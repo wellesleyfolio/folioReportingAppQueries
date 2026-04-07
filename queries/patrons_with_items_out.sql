@@ -79,7 +79,7 @@ FROM
 	LEFT JOIN days ON days.id = circ_loan.id
 WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open' 
 	AND (users_groups.group = userGroup1 OR users_groups.group = userGroup2 OR users_groups.group = userGroup3)
-	AND (users_u.expiration_date < '2029-07-31%')-- expirationDateStart AND expirationDateEnd)
+	AND (users_u.expiration_date < '2029-07-31')-- expirationDateStart AND expirationDateEnd)
 ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC
 $$
 LANGUAGE SQL
