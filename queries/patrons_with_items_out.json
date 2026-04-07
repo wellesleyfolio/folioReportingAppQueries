@@ -2,5 +2,11 @@
     "displayName": "List items checked out to users",
     "description": "Created by Kara1 to exercise metadb's reporting facility",
     "instructions": "Choose a start and end date for the user-creation period.",
-    "parameters": []
+    "parameters": [
+        {
+            "name": "userGroup",
+            "displayName": "User Group name (s) divided by , no spaces",
+            "type": "text",
+            "required": false
+        }]
 }
