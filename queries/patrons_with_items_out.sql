@@ -21,13 +21,13 @@ SELECT
     circ_loan.renewal_count AS renewal_count,
     circ_loan.item_status AS item_status
 FROM
-    folio_circulation.loan__t AS circ_loan
-    LEFT JOIN folio_users.users__t AS users_u ON (users_u.id = circ_loan.user_id)
-    LEFT JOIN folio_users.groups__t AS users_groups ON (users_groups.id = users_u.patron_group)
-    LEFT JOIN folio_inventory.item__t AS inv_item ON (inv_item.id = circ_loan.item_id)
-    LEFT JOIN folio_inventory.holdings_record__t AS inv_hr ON (inv_hr.id = inv_item.holdings_record_id)
-    LEFT JOIN folio_inventory.instance__t AS inv_inst ON (inv_inst.id = inv_hr.instance_id)
-	LEFT JOIN folio_inventory.location__t AS inv_loc ON (inv_loc.id = circ_loan.item_effective_location_id_at_check_out)
+    folio_circulation.loan__t circ_loan
+    LEFT JOIN folio_users.users__t users_u ON (users_u.id = circ_loan.user_id)
+    LEFT JOIN folio_users.groups__t users_groups ON (users_groups.id = users_u.patron_group)
+    LEFT JOIN folio_inventory.item__t inv_item ON (inv_item.id = circ_loan.item_id)
+    LEFT JOIN folio_inventory.holdings_record__t inv_hr ON (inv_hr.id = inv_item.holdings_record_id)
+    LEFT JOIN folio_inventory.instance__t inv_inst ON (inv_inst.id = inv_hr.instance_id)
+	LEFT JOIN folio_inventory.location__t inv_loc ON (inv_loc.id = circ_loan.item_effective_location_id_at_check_out)
 $$
 LANGUAGE SQL
 STABLE
