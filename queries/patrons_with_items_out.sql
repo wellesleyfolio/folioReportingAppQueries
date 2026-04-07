@@ -68,7 +68,7 @@ FROM
 --    LEFT JOIN days ON days.id = circ_loan.id
 --WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open'
 --ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC
-  $$
-  LANGUAGE SQL
-  STABLE
-  PARALLEL SAFE;
+$$
+LANGUAGE SQL
+STABLE
+PARALLEL SAFE;
