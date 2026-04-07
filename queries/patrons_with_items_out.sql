@@ -1,4 +1,4 @@
---metadb:fucntion patrons_with_items_out
+--metadb:function patrons
 DROP FUNCTION IF EXISTS patrons;
 CREATE FUNCTION patrons()
 RETURNS TABLE
