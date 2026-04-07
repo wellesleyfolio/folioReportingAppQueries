@@ -15,16 +15,16 @@ RETURNS TABLE
 --	affiliation_note text,
 --    department_or_major text,
 --    user_note text,
-    patron_expiration_date timestamptz,
+--    patron_expiration_date timestamptz,
     item_location_at_checkout text,
     title text, 
     call_number text,
     vol_chron_enum text,
     item_barcode text,
     renewal_count integer,
-    due_date timestamptz,
+--    due_date timestamptz,
     item_status text,
-    checked_out_date timestamptz,
+--    checked_out_date timestamptz,
     patron_uuid uuid
 )
 AS $$
@@ -41,7 +41,7 @@ SELECT
 --	users_u_og.jsonb#>>'{customFields,affiliationNote}' AS affiliation_note,
 --    users_u_og.jsonb#>>'{customFields,departmentOrMajor}' AS department_or_major,
 --    users_u_og.jsonb#>>'{customFields,userNote}' AS user_note,
-    to_char(users_u.expiration_date,'MM-DD-YYYY') AS patron_expiration_date,
+--    to_char(users_u.expiration_date,'MM-DD-YYYY') AS patron_expiration_date,
     inv_loc.name AS item_location_at_checkout,
     inv_inst.index_title AS title,
     CASE --GETS concat prefix and call number from item record OTHERWISE GETS holdings prefix and callnumber 
@@ -51,9 +51,9 @@ SELECT
     CONCAT(inv_item.volume,inv_item.chronology,inv_item.enumeration) AS vol_chron_enum,
     inv_item.barcode AS item_barcode,
     circ_loan.renewal_count AS renewal_count,
-    to_char(circ_loan.due_date,'MM-DD-YYYY HH24:MM AM') AS due_date,
+ --   to_char(circ_loan.due_date,'MM-DD-YYYY HH24:MM AM') AS due_date,
     circ_loan.item_status AS item_status,
-    to_char(circ_loan.loan_date,'MM-DD-YYYY HH24:MM AM') AS checked_out_date,
+ --   to_char(circ_loan.loan_date,'MM-DD-YYYY HH24:MM AM') AS checked_out_date,
     users_u.id AS patron_uuid
 FROM
     folio_circulation.loan__t AS circ_loan --folio_reporting.loans_items AS li
