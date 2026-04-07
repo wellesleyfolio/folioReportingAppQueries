@@ -35,8 +35,6 @@ WITH days AS (
 )
 SELECT 	
 	CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uuid) AS "Link to Patron Record",
---	jsonb_extract_path_text(circ_loan.jsonb, 'itemId') :: uuid as item_id, 
---	u.jsonb->'personal'->>'firstName' as firstName,
 	circ_loan_og.jsonb#>>'{status,name}' as loan_status,
 	users_groups.group AS patron_group,
 	users_u.barcode AS patron_barcode,
