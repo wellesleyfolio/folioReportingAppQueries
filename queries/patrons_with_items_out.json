@@ -26,7 +26,8 @@
             "displayName": "Expiration Date Start",
             "type": "date",
             "required": false
-        }        {
+        },
+        {
             "name": "expirationDateStart",
             "displayName": "Expiration Date End",
             "type": "date",
