@@ -2,8 +2,8 @@
 DROP FUNCTION IF EXISTS get_users_items_out;
 
 CREATE FUNCTION get_users_items_out()
-RETURNS TABLE(
-	Link_to_patron text,
+RETURNS TABLE
+	(link_to_patron text,
 	loan_status text,
 	patron_group text,
 	patron_barcode text,
@@ -29,12 +29,6 @@ RETURNS TABLE(
     patron_uuid uuid
 )
 AS $$
-WITH days AS (
-    SELECT 
-        id,
-        DATE_PART('day', NOW() - due_date) AS days_overdue
-    FROM folio_circulation.loan__t 
-)
 SELECT 	
 	CONCAT('https://wellesley.folio.ebsco.com/users/preview/',users_u.id::uuid) AS "Link to Patron Record",
 	circ_loan_og.jsonb#>>'{status,name}' as loan_status,
@@ -61,7 +55,6 @@ SELECT
     to_char(circ_loan.due_date,'MM-DD-YYYY HH24:MM AM') AS due_date,
     circ_loan.item_status AS item_status,
     to_char(circ_loan.loan_date,'MM-DD-YYYY HH24:MM AM') AS checked_out_date,
-    DATE_PART('day', NOW() - circ_loan.due_date) AS days_overdue,
     users_u.id AS patron_uuid
 FROM
     folio_circulation.loan__t AS circ_loan --folio_reporting.loans_items AS li
