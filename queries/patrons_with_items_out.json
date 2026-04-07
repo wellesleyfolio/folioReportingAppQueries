@@ -1,16 +1,6 @@
 {
     "displayName": "List items checked out to users",
-    "description": "Created by Kara    Patron Groups:
-				Wellesley student or cross registered
-				Wellesley faculty or staff
-				MIT or Olin or Babson student
-				MIT or Olin or Babson faculty or staff
-				Wellesley affiliates
-				Faculty emeriti or Trustees or Pres Club
-				Wellesley alumnae
-				Boston Library Consortium card holders
-				Internal accounts ILL
-				Wellesley auditors",
+    "description": "Created by Kara  Patron Groups: Wellesley student or cross registered, Wellesley faculty or staff, MIT or Olin or Babson student, MIT or Olin or Babson faculty or staff, Wellesley affiliates, Faculty emeriti or Trustees or Pres Club, Wellesley alumnae, Boston Library Consortium card holders, Internal accounts ILL, Wellesley auditors",
     "instructions": "Input 1 to 3 user group names",
     "parameters": [
         {
