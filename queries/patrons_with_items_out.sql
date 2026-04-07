@@ -3,7 +3,9 @@ DROP FUNCTION IF EXISTS get_users_items_out;
 CREATE FUNCTION get_users_items_out(
 	userGroup1 varchar DEFAULT '',
 	userGroup2 varchar DEFAULT '',
-	userGroup3 varchar DEFAULT '')
+	userGroup3 varchar DEFAULT '',
+	expirationDateStart date DEFAULT '2050-01-01',
+	expirationDateEnd date DEFAULT '2000-01-01')
 RETURNS TABLE(
 	Link_to_patron text,
 	loan_status text,
@@ -75,7 +77,9 @@ FROM
 	LEFT JOIN folio_inventory.instance__t AS inv_inst ON inv_inst.id = inv_hr.instance_id
 	LEFT JOIN folio_inventory.location__t AS inv_loc ON inv_loc.id = circ_loan.item_effective_location_id_at_check_out
 	LEFT JOIN days ON days.id = circ_loan.id
-WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open' AND (users_groups.group = userGroup1 OR users_groups.group = userGroup2 OR users_groups.group = userGroup3)
+WHERE circ_loan_og.jsonb#>>'{status,name}' = 'Open' 
+	AND (users_groups.group = userGroup1 OR users_groups.group = userGroup2 OR users_groups.group = userGroup3)
+	AND (users_u.expiration_date < expirationDateEnd OR users_u.expiration_date > expirationDateStart)
 ORDER BY users_groups.group ASC, users_u_og.jsonb#>>'{personal,lastName}' ASC, users_u_og.jsonb#>>'{personal,firstName}' ASC, inv_item.effective_shelving_order ASC
 $$
 LANGUAGE SQL
