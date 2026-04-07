@@ -1,4 +1,4 @@
---metadb:function get users_items_out
+--metadb:function get_users_items_out
 DROP FUNCTION IF EXISTS get_users_items_out;
 CREATE FUNCTION get_users_items_out()
 RETURNS TABLE(
