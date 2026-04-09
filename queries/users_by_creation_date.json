@@ -1,5 +1,5 @@
 {
-    "displayName": "List users by date of creation",
+    "displayName": "Test-List users by date of creation",
     "description": "Created by Kurt to exercise mod-ldp's reporting facility",
     "instructions": "Choose a start and end date for the user-creation period.",
     "parameters": [
