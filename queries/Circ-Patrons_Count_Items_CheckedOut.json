@@ -1,5 +1,5 @@
 {
-    "displayName": "Circ-Patrons Count of Items CheckedOut",
+    "displayName": "Circ-Patrons Count of Items Checked Out",
     "description": "List of Patrons with a count of number of items checked out.  Created by Kara Hart metadb 4/9/2026",
     "instructions": "Click submit to get list of all patrons with a count of items checked out greater than 0",
     "parameters": []
